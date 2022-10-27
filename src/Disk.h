@@ -1,6 +1,8 @@
 #pragma once
 #include<iostream>
 
+namespace OthelloAI{
+
 class Point{
 public:
     int x_;
@@ -15,9 +17,9 @@ public:
 class Color{
 public:
     //color
-    const int8_t white=1;
-    const int8_t black=-1;
-    const int8_t free=0;
+    static const int8_t white=1;
+    static const int8_t black=-1;
+    static const int8_t free=0;
 
     uint8_t color_;
     Color(uint8_t color){color_=color;}
@@ -38,3 +40,5 @@ public:
     }
     Disk(){Disk(0,0,0);}
 };
+
+}// namespace OthelloAI
