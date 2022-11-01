@@ -24,4 +24,5 @@ void Main(){
         }
         board_viz.draw(board);
     }
+    
 }
