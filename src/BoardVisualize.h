@@ -24,7 +24,7 @@ private:
 void BoardVisualize::setup(int x, int y, int size){
     x_=x;
     y_=y;
-    size_=size;
+    size_=size/board_size_;
     for(int x=0;x<board_size_;x++){
         for(int y=0;y<board_size_;y++){
             disks_[x][y].set( x_+int(0.5*size_)+x*size_, y_+int(0.5*size_)+y*size_, int(0.5*size_*square_ratio_));
@@ -38,6 +38,7 @@ void BoardVisualize::setup(int x, int y, int size){
  }
 
 void BoardVisualize::draw(const Board & board){
+    s3d::Rect{x_,y_,size_*board_size_}.draw(s3d::Palette::Black);
     for(int x=0;x<board.getBoard().size();x++){
         for(int y=0;y<board.getBoard().size();y++){
             s3d::Rect{ x_+int((1-square_ratio_)*0.5*size_)+x*size_, y_+int((1-square_ratio_)*0.5*size_)+y*size_, int(size_*square_ratio_)}.draw(s3d::Palette::Green);
