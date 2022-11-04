@@ -12,6 +12,10 @@ public:
         y_=y;
     }
     Point(){Point(0,0);}
+    void set(int x, int y){
+        x_=x;
+        y_=y;
+    }
 };
 
 class Color{
@@ -21,9 +25,11 @@ public:
     static const int8_t black=-1;
     static const int8_t free=0;
 
-    uint8_t color_;
-    Color(uint8_t color){color_=color;}
+    int8_t color_;
+    Color(int8_t color){color_=color;}
     Color(){color_=free;}
+    void set(int8_t color){color_=color;}
+    operator int8_t() const { return color_; }
 };
 
 class Disk{
@@ -38,7 +44,14 @@ public:
         point_=point;
         color_.color_=color.color_;
     }
+    Disk(Point point, int8_t color){
+        Disk(point,Color(color));
+    }
     Disk(){Disk(0,0,0);}
+    void set(Point point, Color color){
+        point_=point;
+        color_.color_=color.color_;
+    }
 };
 
 }// namespace OthelloAI

@@ -12,7 +12,8 @@ class Board{
     void setDisk(Disk disk){board_[disk.point_.x_][disk.point_.y_]=disk.color_.color_;}
     void setDisk(int x, int y, int8_t color){setDisk(Disk(x,y,color));}
     void setDisk(Point point, int8_t color){setDisk(point.x_, point.y_,color);}
-    const Disk getDisk(Point point){Disk(point.x_,point.y_,board_[point.x_][point.y_]);}
+    const Disk getDisk(const Point & point)const{return Disk(point.x_,point.y_,board_[point.x_][point.y_]);}
+    const Color getColor(const Point & point)const{return Color(board_[point.x_][point.y_]);}
     void setDefaultDisk(){
         board_.assign(board_size_, std::vector<int8_t>(board_size_,0));
         setDisk(3,3,Color::black);
@@ -26,7 +27,6 @@ class Board{
 
     private:
      std::vector<std::vector<int8_t> > board_;
-     
 
 };
 

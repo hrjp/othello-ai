@@ -9,20 +9,30 @@ void Main(){
     
     OthelloAI::BoardVisualize board_viz(50,50,50);
     OthelloAI::Board board;
+    OthelloAI::BoardUtils board_utils;
     board.setDefaultDisk();
 
     const double board_offset=0.05;
 
     while (s3d::System::Update()){
+        //window size
         auto x=s3d::Scene::Size().x*0.5-s3d::Scene::Size().y*(0.5-board_offset);
         auto y=s3d::Scene::Size().y*board_offset;
         auto size=s3d::Scene::Size().y*(1.0-2.0*board_offset);
         board_viz.setup(x,y,size);
+
         auto point=board_viz.getMouseSquare();
         if(point){
-            board.setDisk(point.value(),OthelloAI::Color::black);
+            s3d::Print<<point.value().x_<<point.value().y_;
+            auto disk=OthelloAI::Disk(point.value(),OthelloAI::Color(OthelloAI::Color::black));
+            s3d::Print<<U"disk color "<<disk.color_.color_;
+            if(board_utils.is_place(board,disk)){
+                s3d::Print<<U"Set disk";
+                board.setDisk(point.value(),OthelloAI::Color::black);
+            }
+            
         }
         board_viz.draw(board);
     }
-    
+
 }
