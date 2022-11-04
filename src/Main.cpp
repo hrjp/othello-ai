@@ -22,15 +22,12 @@ void Main(){
         board_viz.setup(x,y,size);
 
         auto point=board_viz.getMouseSquare();
+        static OthelloAI::Color now_color(OthelloAI::Color::black);
         if(point){
-            s3d::Print<<point.value().x_<<point.value().y_;
-            auto disk=OthelloAI::Disk(point.value(),OthelloAI::Color(OthelloAI::Color::black));
-            s3d::Print<<U"disk color "<<disk.color_.color_;
-            if(board_utils.is_place(board,disk)){
-                s3d::Print<<U"Set disk";
-                board.setDisk(point.value(),OthelloAI::Color::black);
+            auto disk=OthelloAI::Disk(point.value(),now_color);
+            if(board_utils.place(board,disk)){
+                now_color.reverse();
             }
-            
         }
         board_viz.draw(board);
     }

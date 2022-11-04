@@ -30,6 +30,7 @@ public:
     Color(){color_=free;}
     void set(int8_t color){color_=color;}
     operator int8_t() const { return color_; }
+    void reverse(){color_*=(-1);}
 };
 
 class Disk{
@@ -44,10 +45,12 @@ public:
         point_=point;
         color_.color_=color.color_;
     }
-    Disk(Point point, int8_t color){
-        Disk(point,Color(color));
-    }
-    Disk(){Disk(0,0,0);}
+    Disk(Point point, int8_t color):
+         point_(point),
+        color_(color){}
+    Disk():
+        point_(0,0),
+        color_(Color::free){}
     void set(Point point, Color color){
         point_=point;
         color_.color_=color.color_;
