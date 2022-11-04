@@ -4,7 +4,7 @@
 
 void Main(){
     s3d::Window::SetStyle(s3d::WindowStyle::Sizable);
-    s3d::Scene::SetBackground(OthelloAI::Color::black);
+    s3d::Scene::SetBackground(s3d::Palette::Black);
     
     OthelloAI::BoardVisualize board_viz(50,50,50);
     OthelloAI::Board board;
