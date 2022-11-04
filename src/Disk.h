@@ -11,7 +11,7 @@ public:
         x_=x;
         y_=y;
     }
-    Point(){Point(0,0);}
+    Point(){set(0,0);}
     void set(int x, int y){
         x_=x;
         y_=y;
