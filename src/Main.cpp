@@ -1,6 +1,5 @@
 #define NO_S3D_USING
-# include <Siv3D.hpp>
-
+#include <Siv3D.hpp>
 #include "OthelloAI.h"
 
 void Main(){
@@ -27,6 +26,15 @@ void Main(){
             auto disk=OthelloAI::Disk(point.value(),now_color);
             if(board_utils.place(board,disk)){
                 now_color.reverse();
+            }
+            if(!board_utils.is_places(board,now_color)){
+                now_color.reverse();
+            }
+            if(now_color==OthelloAI::Color::black){
+                s3d::Scene::SetBackground(s3d::Palette::Black);
+            }
+            else{
+                s3d::Scene::SetBackground(s3d::Palette::White);
             }
         }
         board_viz.draw(board);

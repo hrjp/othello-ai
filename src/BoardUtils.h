@@ -4,7 +4,7 @@ namespace OthelloAI{
 class BoardUtils{
 public:
     const bool is_place(Board & board, const Disk & disk);
-    //const Board is_places(Board & board, const Disk & disk);
+    const bool is_places(Board & board, const Color & color);
     const bool place(Board & board, const Disk & disk);
 private:
     const int board_size_=8;
@@ -20,16 +20,13 @@ const bool BoardUtils::is_area(int x,int y){
 
 const bool BoardUtils::is_place(Board & board, const Disk & disk){
     if(board.getColor(disk.point_) != Color::free){
-        s3d::Print<<U"not free area";
         return false;
     }
     
     for(const auto dir : disk_dir){
         const auto x=disk.point_.x_+dir[0];
         const auto y=disk.point_.y_+dir[1];
-        s3d::Print<<U"search point: "<<x<<U", "<<y;
         if(is_area(x,y) && (disk.color_*(-1)==board.getBoard()[x][y])){
-            s3d::Print<<U"white point: "<<x<<U", "<<y;
             int step=1;
             while (is_area(x+dir[0]*step,y+dir[1]*step)){
                 if(disk.color_==board.getBoard()[x+dir[0]*step][y+dir[1]*step]){
@@ -45,16 +42,13 @@ const bool BoardUtils::is_place(Board & board, const Disk & disk){
 
 const bool BoardUtils::place(Board & board, const Disk & disk){
     if(board.getColor(disk.point_) != Color::free){
-        s3d::Print<<U"not free area";
         return false;
     }
     bool is_place=false;
     for(const auto dir : disk_dir){
         const auto x=disk.point_.x_+dir[0];
         const auto y=disk.point_.y_+dir[1];
-        s3d::Print<<U"search point: "<<x<<U", "<<y;
         if(is_area(x,y) && (disk.color_*(-1)==board.getBoard()[x][y])){
-            s3d::Print<<U"white point: "<<x<<U", "<<y;
             int step=1;
             while (is_area(x+dir[0]*step,y+dir[1]*step)){
                 if(disk.color_==board.getBoard()[x+dir[0]*step][y+dir[1]*step]){
@@ -72,6 +66,18 @@ const bool BoardUtils::place(Board & board, const Disk & disk){
         }
     }
     return is_place;
+}
+
+const bool BoardUtils::is_places(Board & board, const Color & color){
+    for(int x=0; x<board_size_; ++x){
+        for(int y=0; y<board_size_; ++y){
+            Disk disk(x,y,color);
+            if(is_place(board,disk)){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 }// namespace OthelloAI
