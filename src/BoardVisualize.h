@@ -10,6 +10,7 @@ public:
     BoardVisualize(int x, int y, int size);
     void setup(int x, int y, int size);
     void draw(const Board & board);
+    void drawEnablePlaces(const std::vector<Disk> & places);
     const std::optional<Point> getMouseSquare();
 private:
     int x_;
@@ -65,4 +66,18 @@ const std::optional<Point> BoardVisualize::getMouseSquare(){
     }
     return std::nullopt;
 }
+
+void BoardVisualize::drawEnablePlaces(const std::vector<Disk> & places){
+    for(const auto place : places){
+        auto disk_color=s3d::Palette::Green;
+        if(place.color_==OthelloAI::Color::black){
+            disk_color=s3d::Palette::Black;
+        }
+        if(place.color_==OthelloAI::Color::white){
+            disk_color=s3d::Palette::White;
+        }
+        s3d::Circle{x_+int(0.5*size_)+place.point_.x_*size_, y_+int(0.5*size_)+place.point_.y_*size_, int(0.5*size_*square_ratio_/4.0)}.draw(disk_color);
+    }
+}
+
 }// namespace OthelloAI

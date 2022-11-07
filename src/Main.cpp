@@ -10,8 +10,12 @@ void Main(){
     OthelloAI::Board board;
     OthelloAI::BoardUtils board_utils;
     board.setDefaultDisk();
+    std::vector<OthelloAI::Disk> enable_places;
+    OthelloAI::Color now_color(OthelloAI::Color::black);
 
     const double board_offset=0.05;
+
+    board_utils.isPlaces(board,now_color,enable_places);
 
     while (s3d::System::Update()){
         //window size
@@ -21,13 +25,12 @@ void Main(){
         board_viz.setup(x,y,size);
 
         auto point=board_viz.getMouseSquare();
-        static OthelloAI::Color now_color(OthelloAI::Color::black);
         if(point){
             auto disk=OthelloAI::Disk(point.value(),now_color);
             if(board_utils.place(board,disk)){
                 now_color.reverse();
             }
-            if(!board_utils.is_places(board,now_color)){
+            if(!board_utils.isPlaces(board,now_color,enable_places)){
                 now_color.reverse();
             }
             if(now_color==OthelloAI::Color::black){
@@ -38,6 +41,7 @@ void Main(){
             }
         }
         board_viz.draw(board);
+        board_viz.drawEnablePlaces(enable_places);
     }
 
 }
