@@ -3,14 +3,14 @@
 namespace OthelloAI{
 class BoardUtils{
 public:
-    const bool isPlace(Board & board, const Disk & disk);
-    const bool isPlaces(Board & board, const Color & color);
-    const bool isPlaces(Board & board, const Color & color, std::vector<Disk> & enable_places);
+    const bool isPlace(const Board & board, const Disk & disk);
+    const bool isPlaces(const Board & board, const Color & color);
+    const bool isPlaces(const Board & board, const Color & color, std::vector<Disk> & enable_places);
     const bool place(Board & board, const Disk & disk);
+    const int count(const Board & board, const Color & color);
+    const bool isFinish(const Board & board);
 private:
     const int board_size_=8;
-    const std::vector<int> dir_x={1,1,0,-1,-1,-1,0,1};
-    const std::vector<int> dir_y={0,1,1,1,0,-1,-1,-1};
     const std::vector<std::vector<int> > disk_dir={{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};
     const bool is_area(int x,int y=0);
 };
@@ -19,7 +19,7 @@ const bool BoardUtils::is_area(int x,int y){
     return (0<=x && x<board_size_ && 0<=y && y<board_size_);
 }
 
-const bool BoardUtils::isPlace(Board & board, const Disk & disk){
+const bool BoardUtils::isPlace(const Board & board, const Disk & disk){
     if(board.getColor(disk.point_) != Color::free){
         return false;
     }
@@ -69,7 +69,7 @@ const bool BoardUtils::place(Board & board, const Disk & disk){
     return isPlace;
 }
 
-const bool BoardUtils::isPlaces(Board & board, const Color & color){
+const bool BoardUtils::isPlaces(const Board & board, const Color & color){
     for(int x=0; x<board_size_; ++x){
         for(int y=0; y<board_size_; ++y){
             Disk disk(x,y,color);
@@ -81,7 +81,7 @@ const bool BoardUtils::isPlaces(Board & board, const Color & color){
     return false;
 }
 
-const bool BoardUtils::isPlaces(Board & board, const Color & color, std::vector<Disk> & enable_places){
+const bool BoardUtils::isPlaces(const Board & board, const Color & color, std::vector<Disk> & enable_places){
     enable_places.clear();
     for(int x=0; x<board_size_; ++x){
         for(int y=0; y<board_size_; ++y){
@@ -92,6 +92,27 @@ const bool BoardUtils::isPlaces(Board & board, const Color & color, std::vector<
         }
     }
     return enable_places.size()>0;
+}
+
+const int BoardUtils::count(const Board & board, const Color & color){
+    int disk_cou=0;
+    for(const auto & col : board.getBoard()){
+        for(const auto & disk : col){
+            if(disk == color){
+                ++disk_cou;
+            }
+        }
+    }
+    return disk_cou;
+}
+
+const bool BoardUtils::isFinish(const Board & board){
+    const int black_cou=count(board,OthelloAI::Color::black);
+    const int white_cou=count(board,OthelloAI::Color::white);
+    if(black_cou==0 or white_cou==0 or (black_cou+white_cou)==64){
+        return true;
+    }
+    return false;
 }
 
 }// namespace OthelloAI
