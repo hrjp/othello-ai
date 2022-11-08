@@ -27,8 +27,10 @@ void Main(){
             }
             if(!board_utils.isPlaces(board,now_color,enable_places)){
                 now_color.reverse();
+                board_utils.isPlaces(board,now_color,enable_places);
             }
             if(board_utils.isFinish(board)){
+                s3d::Scene::SetBackground(s3d::Palette::White);
                 break;
             }
         }

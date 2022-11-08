@@ -35,7 +35,7 @@ const bool BoardUtils::isPlace(const Board & board, const Disk & disk){
                 if(disk.color_==board.getBoard()[x+dir[0]*step][y+dir[1]*step]){
                     return true;
                 }
-                else{
+                else if(Color::free==board.getBoard()[x+dir[0]*step][y+dir[1]*step]){
                     break;
                 }
                 ++step;
@@ -51,7 +51,7 @@ const bool BoardUtils::place(Board & board, const Disk & disk){
         return false;
     }
     bool isPlace=false;
-    for(const auto dir : disk_dir){
+    for(const auto & dir : disk_dir){
         const auto x=disk.point_.x_+dir[0];
         const auto y=disk.point_.y_+dir[1];
         if(is_area(x,y) && (disk.color_*(-1)==board.getBoard()[x][y])){
@@ -66,7 +66,7 @@ const bool BoardUtils::place(Board & board, const Disk & disk){
                     isPlace=true;
                     break;
                 }
-                else{
+                else if(Color::free==board.getBoard()[x+dir[0]*step][y+dir[1]*step]){
                     break;
                 }
                 ++step;
