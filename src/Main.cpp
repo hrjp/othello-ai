@@ -10,7 +10,6 @@ void Main(){
     OthelloAI::Board board;
     OthelloAI::BoardUtils board_utils;
     board.setDefaultDisk();
-    board.setDisk(OthelloAI::Disk(6,3,OthelloAI::Color::white));
     std::vector<OthelloAI::Disk> enable_places;
     OthelloAI::Color now_color(OthelloAI::Color::black);
 
@@ -20,7 +19,7 @@ void Main(){
 
     while (s3d::System::Update()){
        
-        auto point=board_viz.getMouseSquare();
+        const auto point=board_viz.getMouseSquare();
         if(point){
             auto disk=OthelloAI::Disk(point.value(),now_color);
             if(board_utils.place(board,disk)){

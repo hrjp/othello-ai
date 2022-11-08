@@ -89,7 +89,7 @@ const std::optional<Point> BoardVisualize::getMouseSquare(){
 }
 
 void BoardVisualize::drawEnablePlaces(const std::vector<Disk> & places){
-    for(const auto place : places){
+    for(const auto & place : places){
         auto disk_color=s3d::Palette::Green;
         if(place.color_==OthelloAI::Color::black){
             disk_color=s3d::Palette::Black;

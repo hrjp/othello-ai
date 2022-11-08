@@ -26,7 +26,7 @@ const bool BoardUtils::isPlace(const Board & board, const Disk & disk){
         return false;
     }
     
-    for(const auto dir : disk_dir){
+    for(const auto & dir : disk_dir){
         const auto x=disk.point_.x_+dir[0];
         const auto y=disk.point_.y_+dir[1];
         if(is_area(x,y) && (disk.color_*(-1)==board.getBoard()[x][y])){
