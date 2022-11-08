@@ -18,12 +18,7 @@ void Main(){
     board_utils.isPlaces(board,now_color,enable_places);
 
     while (s3d::System::Update()){
-        //window size
-        auto x=s3d::Scene::Size().x*0.5-s3d::Scene::Size().y*(0.5-board_offset);
-        auto y=s3d::Scene::Size().y*board_offset;
-        auto size=s3d::Scene::Size().y*(1.0-2.0*board_offset);
-        board_viz.setup(x,y,size);
-
+       
         auto point=board_viz.getMouseSquare();
         if(point){
             auto disk=OthelloAI::Disk(point.value(),now_color);
@@ -33,15 +28,19 @@ void Main(){
             if(!board_utils.isPlaces(board,now_color,enable_places)){
                 now_color.reverse();
             }
-            if(now_color==OthelloAI::Color::black){
-                s3d::Scene::SetBackground(s3d::Palette::Black);
-            }
-            else{
-                s3d::Scene::SetBackground(s3d::Palette::White);
+            if(board_utils.isFinish(board)){
+                break;
             }
         }
+
+        board_viz.resize();
         board_viz.draw(board);
         board_viz.drawEnablePlaces(enable_places);
+    }
+    while (s3d::System::Update()){
+        board_viz.resize();
+        board_viz.draw(board);
+
     }
 
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Board.h"
+
 namespace OthelloAI{
 class BoardUtils{
 public:

@@ -2,6 +2,7 @@
 #define NO_S3D_USING
 #include <Siv3D.hpp>
 #include "Board.h"
+#include "BoardUtils.h"
 
 namespace OthelloAI{
 
@@ -9,8 +10,11 @@ class BoardVisualize{
 public:
     BoardVisualize(int x, int y, int size);
     void setup(int x, int y, int size);
+    void resize();
     void draw(const Board & board);
     void drawEnablePlaces(const std::vector<Disk> & places);
+    void drawInfo(const Board & board, const Color & now_color);
+    void drawResult(const Board & board);
     const std::optional<Point> getMouseSquare();
 private:
     int x_;
@@ -19,7 +23,9 @@ private:
     double square_ratio_=0.95;
     double disk_ratio_=0.9;
     const int board_size_=8;
+    const double board_window_offset_=0.05;
     std::vector<std::vector<s3d::Circle> > disks_;
+    BoardUtils utils_;
 };
 
 void BoardVisualize::setup(int x, int y, int size){
@@ -31,6 +37,21 @@ void BoardVisualize::setup(int x, int y, int size){
             disks_[x][y].set( x_+int(0.5*size_)+x*size_, y_+int(0.5*size_)+y*size_, int(0.5*size_*square_ratio_));
         }
     }
+}
+
+void BoardVisualize::resize(){
+    int x,y,size;
+    if(s3d::Scene::Size().x>s3d::Scene::Size().y){
+        x=s3d::Scene::Size().x*0.5-s3d::Scene::Size().y*(0.5-board_window_offset_);
+        y=s3d::Scene::Size().y*board_window_offset_;
+        size=s3d::Scene::Size().y*(1.0-2.0*board_window_offset_);
+    }
+    else{
+        y=s3d::Scene::Size().y*0.5-s3d::Scene::Size().x*(0.5-board_window_offset_);
+        x=s3d::Scene::Size().x*board_window_offset_;
+        size=s3d::Scene::Size().x*(1.0-2.0*board_window_offset_);
+    }
+    setup(x,y,size);
 }
 
  BoardVisualize::BoardVisualize(int x, int y, int size)
@@ -78,6 +99,22 @@ void BoardVisualize::drawEnablePlaces(const std::vector<Disk> & places){
         }
         s3d::Circle{x_+int(0.5*size_)+place.point_.x_*size_, y_+int(0.5*size_)+place.point_.y_*size_, int(0.5*size_*square_ratio_/4.0)}.draw(disk_color);
     }
+}
+
+void BoardVisualize::drawInfo(const Board & board, const Color & now_color){
+
+}
+
+void BoardVisualize::drawResult(const Board & board){
+    int white_cou=utils_.count(board,OthelloAI::Color::white);
+    int black_cou=utils_.count(board,OthelloAI::Color::black);
+    if(white_cou>black_cou){
+        
+    }
+    else{
+        
+    }
+    
 }
 
 }// namespace OthelloAI
