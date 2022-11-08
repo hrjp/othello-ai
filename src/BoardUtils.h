@@ -35,6 +35,9 @@ const bool BoardUtils::isPlace(const Board & board, const Disk & disk){
                 if(disk.color_==board.getBoard()[x+dir[0]*step][y+dir[1]*step]){
                     return true;
                 }
+                else{
+                    break;
+                }
                 ++step;
             }
                 
@@ -61,6 +64,9 @@ const bool BoardUtils::place(Board & board, const Disk & disk){
                     }
                     board.setDisk(disk);
                     isPlace=true;
+                    break;
+                }
+                else{
                     break;
                 }
                 ++step;

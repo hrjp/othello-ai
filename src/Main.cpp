@@ -10,6 +10,7 @@ void Main(){
     OthelloAI::Board board;
     OthelloAI::BoardUtils board_utils;
     board.setDefaultDisk();
+    board.setDisk(OthelloAI::Disk(6,3,OthelloAI::Color::white));
     std::vector<OthelloAI::Disk> enable_places;
     OthelloAI::Color now_color(OthelloAI::Color::black);
 
