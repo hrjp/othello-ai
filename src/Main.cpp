@@ -16,7 +16,6 @@ void Main(){
     const double board_offset=0.05;
 
     board_utils.isPlaces(board,now_color,enable_places);
-
     while (s3d::System::Update()){
        
         const auto point=board_viz.getMouseSquare();
@@ -30,7 +29,7 @@ void Main(){
                 board_utils.isPlaces(board,now_color,enable_places);
             }
             if(board_utils.isFinish(board)){
-                s3d::Scene::SetBackground(s3d::Palette::White);
+                //s3d::Scene::SetBackground(s3d::Palette::White);
                 break;
             }
         }
@@ -42,6 +41,7 @@ void Main(){
     while (s3d::System::Update()){
         board_viz.resize();
         board_viz.draw(board);
+        board_viz.drawResult(board);
 
     }
 

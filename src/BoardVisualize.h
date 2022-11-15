@@ -16,6 +16,7 @@ public:
     void drawInfo(const Board & board, const Color & now_color);
     void drawResult(const Board & board);
     const std::optional<Point> getMouseSquare();
+    s3d::Font font;
 private:
     int x_;
     int y_;
@@ -106,15 +107,19 @@ void BoardVisualize::drawInfo(const Board & board, const Color & now_color){
 }
 
 void BoardVisualize::drawResult(const Board & board){
+    static const s3d::Font font{ s3d::FontMethod::MSDF, size_};
+    s3d::Rect{x_+size_,y_+size_*3,size_*6,size_*2}.draw(s3d::Palette::White);
     int white_cou=utils_.count(board,OthelloAI::Color::white);
     int black_cou=utils_.count(board,OthelloAI::Color::black);
     if(white_cou>black_cou){
-        
+        font(U"White Win").drawAt(double(size_),s3d::Scene::Center(), s3d::Palette::Black);
+    }
+    else if(white_cou<black_cou){
+        font(U"Black Win").drawAt(s3d::Scene::Center(), s3d::Palette::Black);
     }
     else{
-        
+        font(U"  Even  ").drawAt(double(size_),s3d::Scene::Center(), s3d::Palette::Black);
     }
-    
 }
 
 }// namespace OthelloAI
