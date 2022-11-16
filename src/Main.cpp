@@ -4,7 +4,7 @@
 
 void Main(){
     s3d::Window::SetStyle(s3d::WindowStyle::Sizable);
-    s3d::Scene::SetBackground(s3d::Palette::Black);
+    s3d::Scene::SetBackground(s3d::Palette::Skyblue);
     
     OthelloAI::BoardVisualize board_viz(50,50,50);
     OthelloAI::Board board;
@@ -14,7 +14,7 @@ void Main(){
     OthelloAI::Color now_color(OthelloAI::Color::black);
 
     const double board_offset=0.05;
-
+    
     board_utils.isPlaces(board,now_color,enable_places);
     while (s3d::System::Update()){
        
@@ -37,10 +37,12 @@ void Main(){
         board_viz.resize();
         board_viz.draw(board);
         board_viz.drawEnablePlaces(enable_places);
+        board_viz.drawInfo(board,now_color);
     }
     while (s3d::System::Update()){
         board_viz.resize();
         board_viz.draw(board);
+        board_viz.drawInfo(board,now_color);
         board_viz.drawResult(board);
 
     }

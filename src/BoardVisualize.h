@@ -16,7 +16,6 @@ public:
     void drawInfo(const Board & board, const Color & now_color);
     void drawResult(const Board & board);
     const std::optional<Point> getMouseSquare();
-    s3d::Font font;
 private:
     int x_;
     int y_;
@@ -103,12 +102,21 @@ void BoardVisualize::drawEnablePlaces(const std::vector<Disk> & places){
 }
 
 void BoardVisualize::drawInfo(const Board & board, const Color & now_color){
+    //s3d::Rect{x_+size_*board_size_,y_+size_*0,size_*3,size_*2}.draw(s3d::Palette::Green);
+    static const double disp_ratio=0.7;
+    static const s3d::Font font{ s3d::FontMethod::MSDF, size_};
+    int white_cou=utils_.count(board,OthelloAI::Color::white);
+    int black_cou=utils_.count(board,OthelloAI::Color::black);
+    s3d::Circle{x_+size_*board_size_+size_*0.5,y_+size_*0.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::White);
+    s3d::Circle{x_+size_*board_size_+size_*0.5,y_+size_*1.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::Black);
+    font(white_cou).drawAt(double(size_)*disp_ratio,x_+size_*board_size_+size_*1.5,y_+size_*0.5, s3d::Palette::Black);
+    font(black_cou).drawAt(double(size_)*disp_ratio,x_+size_*board_size_+size_*1.5,y_+size_*1.5, s3d::Palette::Black);
 
 }
 
 void BoardVisualize::drawResult(const Board & board){
     static const s3d::Font font{ s3d::FontMethod::MSDF, size_};
-    s3d::Rect{x_+size_,y_+size_*3,size_*6,size_*2}.draw(s3d::Palette::White);
+    s3d::Rect{x_+size_,y_+size_*3,size_*6,size_*2}.draw(s3d::ColorF{s3d::Palette::White,0.7});
     int white_cou=utils_.count(board,OthelloAI::Color::white);
     int black_cou=utils_.count(board,OthelloAI::Color::black);
     if(white_cou>black_cou){
@@ -118,7 +126,7 @@ void BoardVisualize::drawResult(const Board & board){
         font(U"Black Win").drawAt(s3d::Scene::Center(), s3d::Palette::Black);
     }
     else{
-        font(U"  Even  ").drawAt(double(size_),s3d::Scene::Center(), s3d::Palette::Black);
+        font(U"  Draw  ").drawAt(double(size_),s3d::Scene::Center(), s3d::Palette::Black);
     }
 }
 
