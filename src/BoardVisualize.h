@@ -107,10 +107,18 @@ void BoardVisualize::drawInfo(const Board & board, const Color & now_color){
     static const s3d::Font font{ s3d::FontMethod::MSDF, size_};
     int white_cou=utils_.count(board,OthelloAI::Color::white);
     int black_cou=utils_.count(board,OthelloAI::Color::black);
-    s3d::Circle{x_+size_*board_size_+size_*0.5,y_+size_*0.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::White);
-    s3d::Circle{x_+size_*board_size_+size_*0.5,y_+size_*1.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::Black);
-    font(white_cou).drawAt(double(size_)*disp_ratio,x_+size_*board_size_+size_*1.5,y_+size_*0.5, s3d::Palette::Black);
-    font(black_cou).drawAt(double(size_)*disp_ratio,x_+size_*board_size_+size_*1.5,y_+size_*1.5, s3d::Palette::Black);
+    if(s3d::Scene::Size().x>s3d::Scene::Size().y){  
+        s3d::Circle{x_+size_*board_size_+size_*0.5,y_+size_*0.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::White);
+        s3d::Circle{x_+size_*board_size_+size_*0.5,y_+size_*1.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::Black);
+        font(white_cou).drawAt(double(size_)*disp_ratio,x_+size_*board_size_+size_*1.5,y_+size_*0.5, s3d::Palette::Black);
+        font(black_cou).drawAt(double(size_)*disp_ratio,x_+size_*board_size_+size_*1.5,y_+size_*1.5, s3d::Palette::Black);
+    }
+    else{
+        s3d::Circle{x_+size_*0.5,y_-size_*0.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::White);
+        s3d::Circle{x_+size_*6.5,y_-size_*0.5,int(0.5*size_*square_ratio_*disp_ratio)}.draw(s3d::Palette::Black);
+        font(white_cou).drawAt(double(size_)*disp_ratio,x_+size_*1.5,y_-size_*0.5, s3d::Palette::Black);
+        font(black_cou).drawAt(double(size_)*disp_ratio,x_+size_*7.5,y_-size_*0.5, s3d::Palette::Black);
+    }
 
 }
 
