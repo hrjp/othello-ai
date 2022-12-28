@@ -10,6 +10,7 @@ public:
     const bool isPlaces(const Board & board, const Color & color, std::vector<Disk> & enable_places);
     const bool place(Board & board, const Disk & disk);
     const int count(const Board & board, const Color & color);
+    const int placeCount(const Board & board, const Color & color);
     const bool isFinish(const Board & board);
 private:
     const int board_size_=8;
@@ -114,13 +115,14 @@ const int BoardUtils::count(const Board & board, const Color & color){
     return disk_cou;
 }
 
+const int BoardUtils::placeCount(const Board & board, const Color & color){
+    std::vector<Disk> enable_places;
+    isPlaces(board,color,enable_places);
+    return enable_places.size();
+}
+
 const bool BoardUtils::isFinish(const Board & board){
-    const int black_cou=count(board,OthelloAI::Color::black);
-    const int white_cou=count(board,OthelloAI::Color::white);
-    if(black_cou==0 or white_cou==0 or (black_cou+white_cou)==64){
-        return true;
-    }
-    return false;
+    return placeCount(board,OthelloAI::Color::black)==0 and placeCount(board,OthelloAI::Color::white)==0;
 }
 
 }// namespace OthelloAI
