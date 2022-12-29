@@ -8,6 +8,7 @@ public:
     const bool isPlace(const Board & board, const Disk & disk);
     const bool isPlaces(const Board & board, const Color & color);
     const bool isPlaces(const Board & board, const Color & color, std::vector<Disk> & enable_places);
+    const std::vector<Disk> getEnablePlaces(const Board & board, const Color & color);
     const bool place(Board & board, const Disk & disk);
     const int count(const Board & board, const Color & color);
     const int placeCount(const Board & board, const Color & color);
@@ -101,6 +102,12 @@ const bool BoardUtils::isPlaces(const Board & board, const Color & color, std::v
         }
     }
     return enable_places.size()>0;
+}
+
+const std::vector<Disk> BoardUtils::getEnablePlaces(const Board & board, const Color & color){
+    std::vector<Disk> enable_places;
+    isPlaces(board,color,enable_places);
+    return enable_places;
 }
 
 const int BoardUtils::count(const Board & board, const Color & color){

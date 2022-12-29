@@ -15,7 +15,7 @@ public:
     void drawEnablePlaces(const std::vector<Disk> & places);
     void drawInfo(const Board & board, const Color & now_color);
     void drawResult(const Board & board);
-    const std::optional<Point> getMouseSquare();
+    const std::optional<Point> getMouseSquare() const;
 private:
     int x_;
     int y_;
@@ -76,7 +76,7 @@ void BoardVisualize::draw(const Board & board){
     }
 }
 
-const std::optional<Point> BoardVisualize::getMouseSquare(){
+const std::optional<Point> BoardVisualize::getMouseSquare() const{
     for(int x=0;x<board_size_;x++){
         for(int y=0;y<board_size_;y++){
             if(disks_[x][y].leftClicked()){

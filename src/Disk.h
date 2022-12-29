@@ -30,6 +30,10 @@ public:
     Color(){color_=free;}
     void set(int8_t color){color_=color;}
     operator int8_t() const { return color_; }
+    Color operator !() const {return Color(color_*(-1));}
+    bool operator==(Color color){
+        return color.color_==color_;
+    }
     void reverse(){color_*=(-1);}
 };
 
