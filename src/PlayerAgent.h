@@ -9,22 +9,24 @@ namespace OthelloAI{
 
 class PlayerAgent{
 public:
-    PlayerAgent(Color mycolor);
-    PlayerAgent(){}
-    std::optional<Disk> getPlace(const BoardVisualize & board_viz, const Board & board);
+    PlayerAgent(Color mycolor, std::shared_ptr<BoardVisualize> board_viz);
+    //PlayerAgent(){}
+    std::optional<Disk> getPlace(const Board & board);
     const Color & getColor() const{return mycolor_;}
 
 private:
     Color mycolor_=Color::black;
     BoardUtils utils_;
+    std::shared_ptr<BoardVisualize> viz_;
 };
 
-PlayerAgent::PlayerAgent(Color mycolor){
+PlayerAgent::PlayerAgent(Color mycolor, std::shared_ptr<BoardVisualize> board_viz){
     mycolor_=mycolor;
+    viz_=board_viz;
 }
 
-std::optional<Disk> PlayerAgent::getPlace(const BoardVisualize & board_viz, const Board & board){
-    const auto point=board_viz.getMouseSquare(); 
+std::optional<Disk> PlayerAgent::getPlace(const Board & board){
+    const auto point=viz_->getMouseSquare(); 
     if(point){
         const auto disk=OthelloAI::Disk(point.value(),mycolor_);
         if(utils_.isPlace(board,disk)){

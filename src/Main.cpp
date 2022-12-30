@@ -6,14 +6,14 @@ void Main(){
     s3d::Window::SetStyle(s3d::WindowStyle::Sizable);
     s3d::Scene::SetBackground(s3d::Palette::Skyblue);
     
-    OthelloAI::BoardVisualize board_viz(50,50,50);
+    auto board_viz=std::make_shared<OthelloAI::BoardVisualize>(50,50,50);
     OthelloAI::Board board;
     OthelloAI::BoardUtils board_utils;
     board.setDefaultDisk();
     
     OthelloAI::Color now_color(OthelloAI::Color::black);
-    OthelloAI::PlayerAgent player1(now_color);
-    OthelloAI::PlayerAgent player2(!now_color);
+    auto player1=OthelloAI::PlayerAgent(now_color,board_viz);
+    auto player2=OthelloAI::PlayerAgent(!now_color,board_viz);
 
     int scene_num=0;
     std::vector<OthelloAI::Disk> enable_places=board_utils.getEnablePlaces(board,now_color);
@@ -24,13 +24,15 @@ void Main(){
             
             bool place_flag=false;
             if(player1.getColor()==now_color){
-                if(const auto disk=player1.getPlace(board_viz,board); disk){
+                const auto disk=player1.getPlace(board);
+                if(disk){
                     board_utils.place(board,disk.value());
                     place_flag=true;
                 }
             }
             else if(player2.getColor()==now_color){
-                if(const auto disk=player2.getPlace(board_viz,board); disk){
+                const auto disk=player2.getPlace(board);
+                if(disk){
                     board_utils.place(board,disk.value());
                     place_flag=true;
                 }
@@ -49,18 +51,18 @@ void Main(){
                 }
             }
 
-            board_viz.resize();
-            board_viz.draw(board);
-            board_viz.drawEnablePlaces(enable_places);
-            board_viz.drawInfo(board,now_color);
+            board_viz->resize();
+            board_viz->draw(board);
+            board_viz->drawEnablePlaces(enable_places);
+            board_viz->drawInfo(board,now_color);
         }
 
         //result
         else if(scene_num==1){
-            board_viz.resize();
-            board_viz.draw(board);
-            board_viz.drawInfo(board,now_color);
-            board_viz.drawResult(board);
+            board_viz->resize();
+            board_viz->draw(board);
+            board_viz->drawInfo(board,now_color);
+            board_viz->drawResult(board);
         }
     }
 }
