@@ -3,6 +3,7 @@
 #include "OthelloAI.h"
 
 void Main(){
+    s3d::Window::SetTitle(U"Othello AI");
     s3d::Window::SetStyle(s3d::WindowStyle::Sizable);
     s3d::Scene::SetBackground(s3d::Palette::Skyblue);
     
