@@ -26,18 +26,19 @@ ComputerAgent::ComputerAgent(Color mycolor):root_(std::make_shared<Tree>()){
 
 std::optional<Disk> ComputerAgent::getPlace(const Board & board){
     root_->board_=board;
+    root_->children_.clear();
     auto enable_places=utils_.getEnablePlaces(board,mycolor_);
     //置く場所の候補
     for(const auto & place : enable_places){
         Board next_board=board;
         utils_.place(next_board,place);
         root_->children_.emplace_back(std::make_shared<Tree>());
-        root_->children_.front()->board_=next_board;
-        root_->children_.front()->parent_=root_;
-        root_->children_.front()->disk_=place;
+        root_->children_.back()->board_=next_board;
+        root_->children_.back()->parent_=root_;
+        root_->children_.back()->disk_=place;
         for(int i=0; i<50; ++i){
             if(utils_.randomPlay(next_board,!mycolor_)==mycolor_){
-                root_->children_.front()->count_++;
+                root_->children_.back()->count_++;
             }
         }
     }
