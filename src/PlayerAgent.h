@@ -7,10 +7,10 @@
 
 namespace OthelloAI{
 
-class Player{
+class PlayerAgent{
 public:
-    Player(Color mycolor);
-    Player(){}
+    PlayerAgent(Color mycolor);
+    PlayerAgent(){}
     std::optional<Disk> getPlace(const BoardVisualize & board_viz, const Board & board);
     const Color & getColor() const{return mycolor_;}
 
@@ -19,11 +19,11 @@ private:
     BoardUtils utils_;
 };
 
-Player::Player(Color mycolor){
+PlayerAgent::PlayerAgent(Color mycolor){
     mycolor_=mycolor;
 }
 
-std::optional<Disk> Player::getPlace(const BoardVisualize & board_viz, const Board & board){
+std::optional<Disk> PlayerAgent::getPlace(const BoardVisualize & board_viz, const Board & board){
     const auto point=board_viz.getMouseSquare(); 
     if(point){
         const auto disk=OthelloAI::Disk(point.value(),mycolor_);

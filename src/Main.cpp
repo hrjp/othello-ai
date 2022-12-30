@@ -12,8 +12,8 @@ void Main(){
     board.setDefaultDisk();
     
     OthelloAI::Color now_color(OthelloAI::Color::black);
-    OthelloAI::Player player1(now_color);
-    OthelloAI::Player player2(!now_color);
+    OthelloAI::PlayerAgent player1(now_color);
+    OthelloAI::PlayerAgent player2(!now_color);
 
     int scene_num=0;
     std::vector<OthelloAI::Disk> enable_places=board_utils.getEnablePlaces(board,now_color);
@@ -54,7 +54,7 @@ void Main(){
             board_viz.drawEnablePlaces(enable_places);
             board_viz.drawInfo(board,now_color);
         }
-        
+
         //result
         else if(scene_num==1){
             board_viz.resize();

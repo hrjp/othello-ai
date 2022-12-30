@@ -4,7 +4,7 @@
 #include"BoardVisualize.h"
 #include"BoardUtils.h"
 
-#include"Player.h"
+#include"PlayerAgent.h"
 
 namespace OthelloAI{
 
