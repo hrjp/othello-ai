@@ -13,7 +13,8 @@ void Main(){
     
     OthelloAI::Color now_color(OthelloAI::Color::black);
     auto player1=OthelloAI::PlayerAgent(now_color,board_viz);
-    auto player2=OthelloAI::PlayerAgent(!now_color,board_viz);
+    //auto player2=OthelloAI::PlayerAgent(!now_color,board_viz);
+    auto player2=OthelloAI::ComputerAgent(!now_color);
 
     int scene_num=0;
     std::vector<OthelloAI::Disk> enable_places=board_utils.getEnablePlaces(board,now_color);

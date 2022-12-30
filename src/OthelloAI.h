@@ -5,6 +5,7 @@
 #include"BoardUtils.h"
 
 #include"PlayerAgent.h"
+#include"ComputerAgent.h"
 
 namespace OthelloAI{
 

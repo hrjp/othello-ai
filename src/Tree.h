@@ -8,6 +8,7 @@ namespace OthelloAI{
 class Tree{
 public:
     Board board_;
+    Disk disk_;
     int count_=0;
     double score_=0.0;
     std::shared_ptr<Tree> parent_;
