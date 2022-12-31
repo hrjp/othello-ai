@@ -36,7 +36,7 @@ std::optional<Disk> ComputerAgent::getPlace(const Board & board){
         root_->children_.back()->board_=next_board;
         root_->children_.back()->parent_=root_;
         root_->children_.back()->disk_=place;
-        for(int i=0; i<200; ++i){
+        for(int i=0; i<500; ++i){
             if(utils_.randomPlay(next_board,!mycolor_)==mycolor_){
                 root_->children_.back()->count_++;
             }

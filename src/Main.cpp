@@ -15,6 +15,7 @@ void Main(){
     OthelloAI::Color now_color(OthelloAI::Color::black);
     auto player1=OthelloAI::PlayerAgent(now_color,board_viz);
     //auto player2=OthelloAI::PlayerAgent(!now_color,board_viz);
+    //auto player1=OthelloAI::ComputerAgent(now_color);
     auto player2=OthelloAI::ComputerAgent(!now_color);
 
     int scene_num=0;
