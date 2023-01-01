@@ -4,6 +4,7 @@
 #include "Board.h"
 #include "BoardUtils.h"
 #include "Tree.h"
+#include "MonteCarlo.h"
 
 namespace OthelloAI{
 

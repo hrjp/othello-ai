@@ -16,10 +16,10 @@ class Board{
     const Color getColor(const Point & point)const{return Color(board_[point.x_][point.y_]);}
     void setDefaultDisk(){
         board_.assign(board_size_, std::vector<int8_t>(board_size_,0));
-        setDisk(3,3,Color::black);
-        setDisk(3,4,Color::white);
-        setDisk(4,3,Color::white);
-        setDisk(4,4,Color::black);
+        setDisk(3,3,Color::white);
+        setDisk(3,4,Color::black);
+        setDisk(4,3,Color::black);
+        setDisk(4,4,Color::white);
     }
 
     void setBoard(std::vector<std::vector<int8_t> > board){board_=board;}
