@@ -29,7 +29,7 @@ Disk MonteCarlo::getBestPlace(const Board & board, const Color & mycolor, std::v
         Board next_board=board;
         utils_.place(next_board,place);
         int win_cou=0;
-        for(int i=0; i<100; ++i){
+        for(int i=0; i<1000; ++i){
             if(utils_.randomPlay(next_board,!mycolor)==mycolor){
                 win_cou++;
             }
