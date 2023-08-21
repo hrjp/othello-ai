@@ -13,7 +13,7 @@ public:
     Disk getBestPlace(const Board & board, const Color & mycolor, std::vector<double> & eval_array);
     Disk getBestPlace(const Board & board, const Color & mycolor);
 private:
-    int search_cou_=100;
+    int search_cou_=5000;
     BoardUtils utils_;
 
 };
@@ -29,7 +29,7 @@ Disk MonteCarlo::getBestPlace(const Board & board, const Color & mycolor, std::v
         Board next_board=board;
         utils_.place(next_board,place);
         int win_cou=0;
-        for(int i=0; i<1000; ++i){
+        for(int i=0; i<search_cou_; ++i){
             if(utils_.randomPlay(next_board,!mycolor)==mycolor){
                 win_cou++;
             }
